@@ -13,6 +13,7 @@ import ManageOrders from "./admin/ManageOrders"
 import UpdateCategory from './admin/UpdateCategory'
 import UpdateProduct from './admin/UpdateProduct';
 import Cart from './core/Cart';
+import CreateOrder from './core/CreateOrder';
 
 
 
@@ -25,6 +26,8 @@ export default function Routes() {
                 <Route path="/signin" exact component={Signin}/>
                 <Route path="/signup" exact component={Signup}/>
                 <Route path="/cart" exact component={Cart}/>
+                <Route path="/ordergenrated" exact component={CreateOrder}/>
+
                 <AdminRoute path="/admin/create/category" exact component={CreateCategory}/>
                 <AdminRoute path="/admin/manage/category" exact component={ManageCategory}/>
                 <AdminRoute path="/admin/create/product" exact component={CreateProduct}/>

@@ -60,6 +60,7 @@ export default function ProductCard() {
               <div className="card-body">
                   <h4 className="card-title text-center">{product.p_name}</h4>
                   <p className="card-text text-center">{product.description}</p>
+                  <h2 className="card-text text-center">Rs {product.unit_price}</h2>
   
               </div>
                 <button onClick={() => {

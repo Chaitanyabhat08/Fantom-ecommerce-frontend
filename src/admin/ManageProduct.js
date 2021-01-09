@@ -29,6 +29,7 @@ export default function ManageProduct() {
     }, [])
     
     const DeleteThisCategory = ProductId => {
+      console.log(ProductId)
         DeleteProduct(user_id,token,ProductId)
         .then(data => {
             if(data.error){

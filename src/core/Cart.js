@@ -1,10 +1,20 @@
 import React,{useState,useEffect} from 'react'
 import {Form,Button,Alert} from 'react-bootstrap'
+import { Link } from 'react-router-dom'
+import { isauthenticated } from '../authentication/authenticationAPIcall'
 import Base from "./Base"
+import CreateOrder from "./CreateOrder"
 
 export default function Cart() {
 
     const [CartProducts, setCartProducts] = useState([])
+
+    const [Address, setAddress] = useState({
+      address:"",
+      success:""
+    })
+
+    const{address,success} = Address
 
 
     const ProductsInCart=()=>{
@@ -27,7 +37,7 @@ export default function Cart() {
               cart = JSON.parse(localStorage.getItem("cart"));
             }
             cart.map((product,index) => {
-            if(cart[index].p_id === productId){
+            if(product.p_id === productId){
                 cart.splice(index,1)
             }
         });
@@ -44,15 +54,55 @@ export default function Cart() {
         for(let i=0;i<n;i++){
             amt = amt + (cart[i].unit_price * cart[i].count)
         }
+        if(typeof window !== undefined){
+          localStorage.setItem("total_bill",amt)
+        }
         return amt
     }
 
+    const SignInMessage = () => {
+        return(
+            <Alert variant="warning">
+                <small><Alert.Heading>Please <Link to="/signin"> sign in </Link> to place the order. Don't have an account?<Link to="/signup">sign up here</Link></Alert.Heading></small>
+            </Alert>
+        )
+    }
+
+    const handleChange = name => event => {
+      setAddress({...Address, [name]:event.target.value})
+      if(typeof window!==undefined){
+        localStorage.setItem("address",JSON.stringify({address}))
+      }
+  }
+
+
+    const errorMessage = () =>{
+      return(
+        <Alert variant="danger">
+            <small><Alert.Heading>Please enter the Address</Alert.Heading></small>
+        </Alert>
+    )
+    }
+
+    const successMessage = () => {
+      if(success){
+        return(
+          <Alert variant="success">
+              <small><Alert.Heading>Order generated</Alert.Heading></small>
+          </Alert>
+        )
+      }
+    }
 
 
     return (
        <Base title="Cart" description="Happy Shopping">
+          {!isauthenticated() && SignInMessage()}
            <div className="row d-flex justify-content-around">
                <div className="col-xs-12 col-md-6">
+                    {!CartProducts[0] && (
+                      <h2>No products in the Cart :(</h2>
+                    )}
                    {CartProducts && CartProducts.map((product,index)=>{
                        return(
                               <div key={index}>
@@ -76,7 +126,7 @@ export default function Cart() {
                                           </div>
                                         </div>
                                       </div>
-                                      <div class="d-flex justify-content-between align-items-center">
+                                      <div className="d-flex justify-content-between align-items-center">
                                         <div>
                                           <button type="btn btn-light" onClick={()=>{
                                               removeItemFromCart(product.p_id)
@@ -92,15 +142,18 @@ export default function Cart() {
                    })}
                    
                </div>
-               
                <div className="col-md-4 h-25 jumbotron">
+                        {errorMessage()}
+                        {successMessage()}
                         <h2>Total Amount: ₨{Price()}</h2>
                        <Form>
-                        <Form.Group isRequired>
+                        <Form.Group >
                                 <Form.Label>Enter Address</Form.Label>
-                                <Form.Control as="textarea" rows={3} />
+                                <Form.Control onChange={handleChange("address")} value={address} as="textarea" rows={3} />
                         </Form.Group>
-                        <Button variant="success" type="submit">Check out</Button>
+                         {isauthenticated() && (
+                           <Link to="/ordergenrated"><Button variant="success" type="submit">Check out</Button></Link>
+                         )}
                         </Form>
                        
                 </div>

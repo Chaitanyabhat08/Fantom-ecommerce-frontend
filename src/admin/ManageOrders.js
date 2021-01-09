@@ -10,6 +10,8 @@ export default function ManageOrders() {
 
     const [Orders, setOrders] = useState([])
 
+    const [Products, setProducts] = useState([])
+
     const{token}=isauthenticated();
     const user_id = isauthenticated().user.user_id;
 
@@ -21,7 +23,16 @@ export default function ManageOrders() {
             }
             else{
                 setOrders(data);
-                console.log(data)
+                data.map((data,index)=>{
+                    delete data.address
+                    delete data.email  
+                    delete data.mobile_no
+                    delete data.password
+                    delete data.role
+                    delete data.status
+                    delete data.user_id                    
+                    console.log(data)
+                })
             }
         })
     }
@@ -70,8 +81,7 @@ export default function ManageOrders() {
                     <tr>
                     <th scope="col">Order ID</th>
                     <th scope="col">Customer Name</th>
-                    <th scope="col">Product</th>
-                    <th scope="col">Quantity</th>
+                    <th scope="col">Address</th>
                     <th scope="col">Status</th>
                     <th scope="col">  </th>
                     </tr>
@@ -80,9 +90,8 @@ export default function ManageOrders() {
                     {Orders.map((order,index)=>(
                         <tr key={index}>
                             <th scope="row">{order.order_id}</th>
-                            <td> </td>
-                            <td>{order.p_name}</td>
-                            <td>{order.quantity}</td>
+                            <td>{order.user_name} </td>
+                            <td>{order.address} </td>
                             <td>
                                 <select onChange = {(event)=>{
                                     setStatus(event.target.value)

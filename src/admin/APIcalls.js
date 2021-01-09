@@ -152,6 +152,7 @@ export const UpdateProductAPI = (userId,token,ProductId,product) => {
 
 //DELETE PRODUCT
 export const DeleteProduct = (userId,token,ProductId) => {
+    console.log(ProductId)
     return fetch(`${API}/product/${ProductId}/${userId}`,{
         method:"DELETE",
         headers:{
@@ -170,6 +171,26 @@ export const DeleteProduct = (userId,token,ProductId) => {
 //Order
 
 //CREATE
+export const CreateOrderAPI = (userId,token,values) => {
+    console.log("FRONTEND", values)
+    return fetch(`${API}/order/create/${userId}`,{
+        method:"POST",
+        headers:{
+            Accept: "application/json",
+            Authorization: `Bearer ${token}`,
+            "Content-Type":"application/json"
+        },
+        body: JSON.stringify(values)
+    })
+    .then(response => {
+        console.log("FRONT END", values, userId, token)
+        console.log(response)
+        return response.json()
+    })
+    .catch(err=>{
+        console.log(err)
+    })
+}
 
 //READ
 export const AllOrders = (userId,token) => {

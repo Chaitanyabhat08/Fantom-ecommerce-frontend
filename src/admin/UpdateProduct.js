@@ -42,7 +42,8 @@ export default function UpdateProduct({match}) {
                     stock:data.stock,
                     description:data.description,
                     quant_unit:data.quant_unit,
-                    category_name:data.category_name
+                    category_name:data.category_name,
+                    category_id:data.category_id
                 })
             }
         })
@@ -79,7 +80,8 @@ export default function UpdateProduct({match}) {
                 setvalues({...values,error:data.error});
             }
             else{
-                setvalues({...values,error:"",success:true,p_name:"",
+                setvalues({...values,error:"",success:true,
+                p_name:"",
                 image:"",
                 unit_price:"",
                 stock:"",
@@ -156,7 +158,6 @@ export default function UpdateProduct({match}) {
             <Row className="h-100 d-flex justify-content-center border border-danger">
                 <Col className=" rounded p-auto  mh-100">
                     <h2 className="bg-danger text-white text-center">Update Product</h2>
-                    <h3 className="text-right">Units Sold : {quant_unit}</h3>
                     {successMessage()}
                     {UpdateProductForm()}
                 </Col>

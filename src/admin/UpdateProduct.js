@@ -95,6 +95,7 @@ export default function UpdateProduct({match}) {
     const UpdateProductForm = () => {
         return(
             <Form>
+         <h5 className="text-right text-dark my-3">Total Orders: {quant_unit}</h5>
         <Form.Label>Image</Form.Label>
         <Form.Control placeholder="URL" onChange={handleChange("image")} value={image} type="text"></Form.Control>
         <Form.Row>

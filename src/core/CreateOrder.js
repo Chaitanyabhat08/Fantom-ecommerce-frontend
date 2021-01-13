@@ -60,6 +60,9 @@ export default function CreateOrder() {
        .catch(err=>{
            console.log(err)
        })
+       if(typeof window !== undefined){
+        localStorage.removeItem("cart")
+      }
 
 
     }
@@ -81,7 +84,7 @@ export default function CreateOrder() {
                     {success ? successMessage() : ""}
                     
                     <h1>Thank you for Ordering. Click here to confirm your order</h1>
-                    <button onClick={PlaceOrder} className="btn-lg btn-success">Confirm</button>
+                    {success ? "":<button onClick={PlaceOrder} className="btn-lg btn-success">Confirm</button>}
             </div>
         </div>
         </Base>

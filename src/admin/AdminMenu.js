@@ -35,6 +35,11 @@ const AdminMenu = () => {
                     Manage Orders
                 </ListGroup.Item>
             </Link>
+            <Link to="/admin/report">
+                <ListGroup.Item variant="dark" action>
+                    Sales Report
+                </ListGroup.Item>
+            </Link>
         </ListGroup>
     )
 }

@@ -19,7 +19,6 @@ export default function ManageProduct() {
             }
             else{
                 setProducts(data);
-                console.log(Products)
             }
         })
     }

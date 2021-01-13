@@ -49,6 +49,9 @@ export default function Cart() {
 
     const Price = () => {
         let cart = ProductsInCart();
+        if(cart == undefined){
+          return 0
+        }
         let n = cart.length;
         let amt=0
         for(let i=0;i<n;i++){
@@ -100,7 +103,7 @@ export default function Cart() {
           {!isauthenticated() && SignInMessage()}
            <div className="row d-flex justify-content-around">
                <div className="col-xs-12 col-md-6">
-                    {!CartProducts[0] && (
+                    {!CartProducts && (
                       <h2>No products in the Cart :(</h2>
                     )}
                    {CartProducts && CartProducts.map((product,index)=>{
@@ -145,7 +148,7 @@ export default function Cart() {
                <div className="col-md-4 h-25 jumbotron">
                         {errorMessage()}
                         {successMessage()}
-                        <h2>Total Amount: ₨{Price()}</h2>
+                        <h2>Total Amount: ₨{CartProducts && Price()}</h2>
                        <Form>
                         <Form.Group >
                                 <Form.Label>Enter Address</Form.Label>
